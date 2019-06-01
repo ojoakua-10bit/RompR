@@ -303,6 +303,35 @@ debuglog("Including skins/".$skin.'/skin.php',"LAYOUT",7);
 include('skins/'.$skin.'/skin.php');
 ?>
 
+<audio id="mpdstream" preload="none">
+    <source src="/static/gajelas/stream.ogg" type="audio/ogg">
+</audio>
+
+<script>
+let state = 0;
+let audio = $("#mpdstream").get(0);
+setInterval(function() {
+        if (audio.paused) {
+                reload();
+        }
+        attachControl();
+}, 1000);
+
+function reload() {
+        audio.load();
+        audio.play();
+}
+
+$('.stop-button').get(0).onclick = function() { audio.pause(); console.log('stop'); }
+
+$('.play-button').get(0).onclick = function() { setTimeout(reload, 1000); console.log('play'); }
+
+function attachControl() {
+        $(".playid").on("click", function() { setTimeout(reload, 1000); console.log('play'); });
+}
+
+</script>
+
 </body>
 </html>
 <?php
